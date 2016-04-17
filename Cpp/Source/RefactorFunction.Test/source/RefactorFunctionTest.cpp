@@ -5,15 +5,18 @@
 
 TEST( First, Refactor )
 {
-    EXPECT_EQ(1, 1);
+    CalcIni(23, false);
+    EXPECT_EQ(5, Calc(false));
 }
 
 TEST( Second, Refactor )
 {
-    EXPECT_TRUE(true);
+    EXPECT_EQ(23, Calc(true));
 }
 
 TEST( Third, Refactor )
 {
-    EXPECT_FALSE(false);
+    CalcIni(23, true);
+    EXPECT_EQ(3, Calc(true));
+    EXPECT_EQ(3, Calc(false));
 }
