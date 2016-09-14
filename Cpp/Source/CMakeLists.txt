@@ -16,7 +16,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../Bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../Bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../Bin)
 
-add_compile_options(--std=c++11)
+add_compile_options(--std=c++14)
 add_compile_options(-Wall)
 add_compile_options(-Werror)
 add_compile_options(${COVERAGE_COMPILE_FLAGS})
@@ -33,7 +33,7 @@ include(ExternalProject)         # Enable ExternalProject CMake module
 
 ExternalProject_Add(
     gmock
-    URL https://googlemock.googlecode.com/files/gmock-1.7.0.zip
+    URL https://github.com/google/googletest/archive/release-1.8.0.zip
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gmock
     # Disable install step
     INSTALL_COMMAND ""
@@ -51,16 +51,18 @@ set_target_properties(libgmock PROPERTIES
     "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}")
 
 SET(GMOCK_INCLUDE_DIRECTORIES
-   "${source_dir}/include"
-   "${source_dir}/gtest/include")
+   "${source_dir}/googlemock/include"
+   "${source_dir}/googletest/include")
 
 SET(GMOCK_ALL_LIBRARIES 
-   "${binary_dir}/gtest/libgtest.a" 
-   "${binary_dir}/gtest/libgtest_main.a" 
-   "${binary_dir}/libgmock.a" 
-   "${binary_dir}/libgmock_main.a"
+   "${binary_dir}/googlemock/gtest/libgtest.a" 
+   "${binary_dir}/googlemock/gtest/libgtest_main.a" 
+   "${binary_dir}/googlemock/libgmock.a" 
+   "${binary_dir}/googlemock/libgmock_main.a"
    pthread)
 
 add_subdirectory(RefactorFunction.Lib)
 add_subdirectory(RefactorFunction.Test)
+add_subdirectory(ChristmasTree.Lib)
+add_subdirectory(ChristmasTree.Test)
 
