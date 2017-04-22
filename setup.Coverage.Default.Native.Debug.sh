@@ -7,13 +7,13 @@ SOURCE_DIR=$DIR/Source
 if [ ! -d "$BUILD_DIR" ]; then
    mkdir -p $BUILD_DIR
    pushd $BUILD_DIR
-      cmake -DCMAKE_BUILD_TYPE=Coverage $SOURCE_DIR
+      cmake \
+		-DBIN_PATH_POSTFIX=Coverage\
+		-DCMAKE_BUILD_TYPE=Coverage\
+		$SOURCE_DIR 
+		cmake --build $BUILD_DIR --config Debug
    popd
 fi
-
-pushd $BUILD_DIR
-   make -B
-popd
 
 find $BIN_DIR -maxdepth 1 -name "*.Test" -exec {} \;
 gcovr \
