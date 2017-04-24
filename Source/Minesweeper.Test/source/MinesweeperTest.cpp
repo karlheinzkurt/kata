@@ -7,7 +7,7 @@ TEST( Minesweeper, Empty )
 {
    std::stringstream s;
    CMinesweeper m(s);
-   EXPECT_EQ("\n", m.getCheatsheet());
+   EXPECT_EQ("", m.getCheatsheet());
 }
 
 TEST( Minesweeper, OneMine )

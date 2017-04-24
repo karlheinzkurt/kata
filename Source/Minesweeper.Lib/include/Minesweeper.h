@@ -1,21 +1,22 @@
 #pragma once
 
 #include <iosfwd>
+#include <string>
 #include <map>
 #include <vector>
+#include <memory>
 
 struct CMinesweeper
 {
    CMinesweeper(std::istream& playgroundStream);
 
    std::ostream& getCheatsheet(std::ostream& os) const;
+   
    std::string getCheatsheet() const;
    
    struct CCoordinate
    {
       CCoordinate(int x, int y);
-   
-      int getLine() const;
    
       bool operator<(CCoordinate const& other) const;
       
@@ -26,25 +27,19 @@ struct CMinesweeper
       int m_y;
    };
    
-   struct CField
-   {
-      CField();
+   struct IField
+   {  
+      virtual ~IField() = default;
       
-      CField(char input);
-           
-      bool isMine() const { return m_isMine; }
-      
-      void operator++() { ++m_count; }
-      
-      std::string toString() const;
+      virtual bool isMine() const = 0;
    
-   private:
-      bool m_isMine;
-      bool m_isVisible;
-      bool m_isSpace;
-      char m_count; ///< Count of mines in the neighborhood
+      virtual void incrementCount() = 0;
+            
+      virtual std::string toString() const = 0;
    };
 
-private:
-   std::map<CCoordinate, CField> m_fields;
+   static std::unique_ptr<IField> createField(char ch);
+   
+private:   
+   std::map<CCoordinate, std::unique_ptr<IField>> m_fields;
 };
