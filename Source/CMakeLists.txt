@@ -68,4 +68,6 @@ add_subdirectory(ChristmasTree.Lib)
 add_subdirectory(ChristmasTree.Test)
 add_subdirectory(Minesweeper.Lib)
 add_subdirectory(Minesweeper.Test)
+add_subdirectory(Calendar.Lib)
+add_subdirectory(Calendar.Test)
 
