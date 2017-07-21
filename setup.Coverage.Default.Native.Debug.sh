@@ -1,7 +1,7 @@
 #!/bin/bash
 DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 BUILD_DIR=$DIR/build/Coverage
-BIN_DIR=$DIR/bin
+BIN_DIR=$DIR/bin/Coverage
 SOURCE_DIR=$DIR/Source
 
 if [ ! -d "$BUILD_DIR" ]; then
