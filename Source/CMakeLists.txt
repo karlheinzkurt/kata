@@ -70,4 +70,6 @@ add_subdirectory(Minesweeper.Lib)
 add_subdirectory(Minesweeper.Test)
 add_subdirectory(Calendar.Lib)
 add_subdirectory(Calendar.Test)
+add_subdirectory(Battleship.Lib)
+add_subdirectory(Battleship.Test)
 
