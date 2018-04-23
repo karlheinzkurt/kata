@@ -88,4 +88,7 @@ add_subdirectory(Calendar.Lib)
 add_subdirectory(Calendar.Test)
 add_subdirectory(Battleship.Lib)
 add_subdirectory(Battleship.Test)
+add_subdirectory(Mandelbrot.Lib)
+add_subdirectory(Mandelbrot.Test)
+
 
