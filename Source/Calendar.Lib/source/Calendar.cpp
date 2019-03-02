@@ -8,6 +8,8 @@
 #include <set>
 #include <array>
 #include <iomanip>
+#include <vector>
+#include <cmath>
 
 template < typename T, T min, T max>
 DateElementBase<T, min, max>::DateElementBase(T value) : m_value(value)

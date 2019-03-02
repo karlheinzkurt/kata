@@ -17,6 +17,11 @@ namespace Battleship
       {
          CBuilder();
          ~CBuilder();
+         CBuilder(CBuilder const&) = delete;
+         CBuilder(CBuilder&&);
+         CBuilder& operator=(CBuilder const&) = delete;
+         CBuilder& operator=(CBuilder&&);
+         
          CGame create();
          
          CBuilder& useWidth(unsigned int w);

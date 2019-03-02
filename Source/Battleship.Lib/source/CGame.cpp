@@ -108,6 +108,9 @@ namespace Battleship
    CGame::CBuilder::CBuilder() = default;   
    CGame::CBuilder::~CBuilder() = default;
    
+   CGame::CBuilder::CBuilder(CGame::CBuilder&&) = default;
+   CGame::CBuilder& CGame::CBuilder::operator=(CGame::CBuilder&&) = default;
+   
    CGame::CBuilder& CGame::CBuilder::useWidth(unsigned int w)
    {  m_configuration->m_width = w; return *this; }
    
