@@ -1,4 +1,5 @@
 
+#include "../include/CConfiguration.h"
 #include "../include/CGame.h"
 #include "../include/Utility.h"
 
@@ -104,19 +105,25 @@ namespace Battleship
       FieldContainerType m_fields;
    };
    
-   CGame::CBuilder::CBuilder() : m_configuration() 
-   {}
+   CGame::CBuilder::CBuilder() = default;   
+   CGame::CBuilder::~CBuilder() = default;
+   
+   CGame::CBuilder& CGame::CBuilder::useWidth(unsigned int w)
+   {  m_configuration->m_width = w; return *this; }
+   
+   CGame::CBuilder& CGame::CBuilder::useHeight(unsigned int h)
+   { m_configuration->m_height = h; return *this; }
    
    CGame::CBuilder& CGame::CBuilder::placeShip(std::unique_ptr<IShip> ship)
    {  
-      m_configuration.m_ships.emplace_back(std::move(ship)); 
+      m_configuration->m_ships.emplace_back(std::move(ship)); 
       return *this;
    }
 
    CGame CGame::CBuilder::create()
    {
-      if (m_configuration.m_width == 0) { throw std::invalid_argument("Playground width equals 0"); }
-      if (m_configuration.m_height == 0) { throw std::invalid_argument("Playground height equals 0"); }
+      if (m_configuration->m_width == 0) { throw std::invalid_argument("Playground width equals 0"); }
+      if (m_configuration->m_height == 0) { throw std::invalid_argument("Playground height equals 0"); }
       
       return CGame(std::move(*this));
    }
@@ -127,7 +134,7 @@ namespace Battleship
 
    CGame::CGame(CBuilder builder) : 
        m_configuration(std::move(builder.m_configuration))
-      ,m_playground(std::make_unique<CPlayground>(m_configuration))
+      ,m_playground(std::make_unique<CPlayground>(*m_configuration))
    {}
    
    bool CGame::fire(CCoordinate const& c)
