@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iosfwd>
 #include <string>
 #include <complex>
 #include <array>
@@ -11,14 +10,15 @@ typedef std::array<double, 2> minmax;
 
 struct CMandelbrot
 {
-   CMandelbrot(int iterations);
+   CMandelbrot(int iterations, double bailoutRadius);
    
-   bool isInSet(complex c);
+   bool isInside(complex c);
+   
+   int getIterations(complex c);
 
-   std::string print(minmax mx, minmax my, minmax step);
+   std::string toString(minmax mx, minmax my, minmax step);
 
 private:
-   bool isInSet(complex z, complex c, int iteration);
-
    int const m_iterations;
+   double const m_bailoutRadius;
 };

@@ -1,37 +1,43 @@
 #include "../include/Mandelbrot.h"
 
-#include <iostream>
 #include <sstream>
 #include <complex>
 
-CMandelbrot::CMandelbrot(int iterations) : m_iterations(iterations) {}
+CMandelbrot::CMandelbrot(int iterations, double bailoutRadius) 
+   : m_iterations(iterations) 
+   , m_bailoutRadius(bailoutRadius)
+{}
 
-bool CMandelbrot::isInSet(complex c)
+bool CMandelbrot::isInside(complex c)
 {
-   return isInSet(complex(0,0), c, m_iterations);
+   return getIterations(c) >= m_iterations;
 }
 
-bool CMandelbrot::isInSet(complex z, complex c, int iteration)
+int CMandelbrot::getIterations(complex c)
 {
-   auto const result = std::pow(z, 2) + c;
-
-   if (iteration >= m_iterations)
+   auto iteration = 0;
+   auto z = complex(0,0) + c;
+   while (1)
    {
-      return (std::abs(result.real()) <= 1 && std::abs(result.imag()) <= 1);
+      if (std::abs(z) > m_bailoutRadius || iteration >= m_iterations)
+      {  
+         break;
+      }
+      ++iteration;
+      z = std::pow(z, 2) + c;
    }
-   
-   return isInSet(result, c, ++iteration);
+   return iteration;
 }
 
-std::string CMandelbrot::print(minmax mx, minmax my, minmax step)
+std::string CMandelbrot::toString(minmax mx, minmax my, minmax step)
 {
    std::ostringstream result;
-   for (double y = my[0]; y < my[1]; y += step[0])
+   for (double y = my[0]; y <= my[1]; y += step[1])
    {
       std::ostringstream os;
-      for (double x = mx[0]; x < mx[1]; x += step[1])
+      for (double x = mx[0]; x <= mx[1]; x += step[0])
       {
-         os << (isInSet(complex(0,0), complex(x,y), 0) ? '.' : ' ');
+         os << (isInside(complex(x,y)) ? '.' : ' ');
       }
       result << os.str() << "\n";
    }
